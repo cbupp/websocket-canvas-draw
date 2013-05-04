@@ -8,7 +8,24 @@ body {
 	
 	
 canvas {
+  float:left;
 	background: #fff;
-	margin: 20px auto;
-	border: 5px solid #E8E8E8;
-	display: block;}
+	margin: 20px;
+  -moz-box-shadow:    3px 3px 5px 6px #1f1825;
+  -webkit-box-shadow: 3px 3px 5px 6px #1f1825;
+  box-shadow:         3px 3px 5px 6px #1f1825;
+	display: block;
+}
+  
+.shadow {
+  -moz-box-shadow:    3px 3px 5px 6px #1f1825;
+  -webkit-box-shadow: 3px 3px 5px 6px #1f1825;
+  box-shadow:         3px 3px 5px 6px #1f1825;
+}
+
+.logo {
+  float:right;
+  background-color:white;
+  padding:5px;
+	margin: 20px;
+}

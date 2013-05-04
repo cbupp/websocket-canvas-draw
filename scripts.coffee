@@ -17,19 +17,18 @@ App.init = ->
 	App.ctx.strokeStyle = "#ECD018"		
 	App.ctx.lineWidth = 5				
 	App.ctx.lineCap = "round"
-		
 	# Sockets!
-	App.socket = io.connect('http://localhost:4000')
-	
+	App.socket = io.connect('http://bupp.no-ip.org:4000')
+  
 	App.socket.on 'draw', (data) ->
 		App.draw(data.x,data.y,data.type)
 		
 	# Draw Function
 	App.draw = (x,y,type) ->
-		if type is "dragstart"
+		if type is "dragstart" || type is "touchstart"
 			App.ctx.beginPath()
 			App.ctx.moveTo(x,y)
-		else if type is "drag"
+		else if type is "drag" || type is "touchmove"
 			App.ctx.lineTo(x,y)
 			App.ctx.stroke()
 		else
@@ -42,18 +41,18 @@ App.init = ->
 ###
 	Draw Events
 ###
-$('canvas').live 'drag dragstart dragend', (e) ->
-	type = e.handleObj.type
+$('canvas').live 'drag dragstart dragend touchstart touchend touchmove', (e) ->
+	type = e.type
 	offset = $(this).offset()
-	
-	e.offsetX = e.layerX - offset.left
-	e.offsetY = e.layerY - offset.top
+	e.preventDefault()
+	e.offsetX = e.layerX# - offset.left
+	e.offsetY = e.layerY# - offset.top
+	#alert e.layerX
 	x = e.offsetX 
 	y = e.offsetY
 	App.draw(x,y,type)
 	App.socket.emit('drawClick', { x : x, y : y, type : type})
 	return
-
 
 
 # jQuery document.ready
